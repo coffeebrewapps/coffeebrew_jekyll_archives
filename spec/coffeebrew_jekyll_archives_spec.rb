@@ -12,6 +12,7 @@ require_relative "./scenarios/filename/context"
 require_relative "./scenarios/permalink/context"
 
 require_relative "./scenarios/invalid_config_values/context"
+require_relative "./scenarios/invalid_config_keys/context"
 
 SUCCESS_EXAMPLE = "generates a page for each depth of posts with correct navigation and link hierarchy"
 FAILURE_EXAMPLE = "raises Jekyll::Errors::InvalidConfigurationError"
@@ -109,6 +110,10 @@ RSpec.describe(Coffeebrew::Jekyll::Archives) do
     end
 
     include_context CONTEXT_INVALID_CONFIG_VALUES do
+      it_behaves_like FAILURE_EXAMPLE
+    end
+
+    include_context CONTEXT_INVALID_CONFIG_KEYS do
       it_behaves_like FAILURE_EXAMPLE
     end
   end
