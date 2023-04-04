@@ -9,6 +9,7 @@ require_relative "./scenarios/depth_one/context"
 require_relative "./scenarios/depth_two/context"
 require_relative "./scenarios/title_format/context"
 require_relative "./scenarios/filename/context"
+require_relative "./scenarios/permalink/context"
 
 SUCCESS_EXAMPLE = "generates a page for each depth of posts with correct navigation and link hierarchy"
 FAILURE_EXAMPLE = "raises Jekyll::Errors::InvalidConfigurationError"
@@ -81,6 +82,10 @@ RSpec.describe(Coffeebrew::Jekyll::Archives) do
     end
 
     include_context CONTEXT_FILENAME do
+      it_behaves_like SUCCESS_EXAMPLE
+    end
+
+    include_context CONTEXT_PERMALINK do
       it_behaves_like SUCCESS_EXAMPLE
     end
   end
