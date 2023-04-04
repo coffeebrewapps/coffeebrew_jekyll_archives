@@ -2,6 +2,8 @@
 
 require "spec_helper"
 
+require_relative "./scenarios/default/context"
+
 SUCCESS_EXAMPLE = "generates a page for each depth of posts with correct navigation and link hierarchy"
 FAILURE_EXAMPLE = "raises Jekyll::Errors::InvalidConfigurationError"
 
@@ -46,6 +48,10 @@ RSpec.describe(Coffeebrew::Jekyll::Archives) do
           expect(sanitized_generated).to eq sanitized_expected
         end
       end
+    end
+
+    include_context CONTEXT_DEFAULT do
+      it_behaves_like SUCCESS_EXAMPLE
     end
   end
 
