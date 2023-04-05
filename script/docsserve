@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+version=$1
+
+script/docsprep $version
+
+###
+# Serve docs/
+###
+bundle exec jekyll serve
+
+index_dest="index.md"
+license_dest="license.md"
+changelog_dest="versions.md"
+
+rm $index_dest $license_dest $changelog_dest

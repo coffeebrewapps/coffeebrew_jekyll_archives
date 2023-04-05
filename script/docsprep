@@ -1,0 +1,75 @@
+#!/bin/bash
+
+set -e
+
+version=$1
+
+###
+# Build index.html from current README.md
+###
+index_src="README.md"
+index_dest="index.md"
+touch $index_dest
+
+echo "---
+layout: default
+title: Home
+toc: true
+version: $version
+---" > $index_dest
+
+cat $index_src >> $index_dest
+
+sed -i "" 's/\/blob\/master\/LICENSE/\/license.html/g' $index_dest
+
+###
+# Build _versions/${version}.md from current README.md
+###
+version_dest="_versions/$version.md"
+touch $version_dest
+
+echo "---
+layout: version
+toc: true
+title: $version
+version: $version
+---" > $version_dest
+
+cat $index_src >> $version_dest
+
+sed -i "" 's/\/blob\/master\/LICENSE/\/license.html/g' $version_dest
+
+###
+# Build licences.md from current LICENSE
+###
+license_src="LICENSE"
+license_dest="license.md"
+touch $license_dest
+
+echo "---
+layout: default
+toc: false
+title: License
+version: $version
+---" > $license_dest
+
+cat $license_src >> $license_dest
+
+###
+# Build versions.md from current CHANGELOG.md
+###
+changelog_src="CHANGELOG.md"
+changelog_dest="versions.md"
+touch $changelog_dest
+
+echo "---
+layout: default
+toc: false
+title: Versions
+version: $version
+---" > $changelog_dest
+
+cat $changelog_src >> $changelog_dest
+
+sed -i "" 's/\/blob\/v/\/versions\//g' $changelog_dest
+sed -i "" 's/\/README.md/.html/g' $changelog_dest
