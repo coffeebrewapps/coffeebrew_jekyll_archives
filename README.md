@@ -434,7 +434,7 @@ If you are contributing to the gem, please make sure you have setup your develop
 RSpec and Rubocop can run properly.
 
 1. After forking the repo, go into the repo directory (`cd coffeebrew_jekyll_archives/`).
-2. Make sure you have the correct Ruby version installed. This gem requires Ruby >= 2.5.0.
+2. Make sure you have the correct Ruby version installed. This gem requires Ruby >= 2.7.0.
 3. Once you have the correct Ruby version, install the development dependencies (`bundle install`).
 4. To test that you have everything installed correctly, run the test cases (`bundle exec rspec`).
 5. You should see all test cases pass successfully.
@@ -623,4 +623,4 @@ will recommend an alternative if it doesn't.
 
 ## License
 
-See the [LICENSE](https://github.com/coffeebrewapps/coffeebrew_jekyll_archives/blob/master/LICENSE) file.
+See the [LICENSE](/blob/master/LICENSE) file.
