@@ -623,4 +623,4 @@ will recommend an alternative if it doesn't.
 
 ## License
 
-See the [LICENSE](/blob/master/LICENSE) file.
+See the [LICENSE](/LICENSE) file.

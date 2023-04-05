@@ -20,7 +20,7 @@ version: $version
 
 cat $index_src >> $index_dest
 
-sed -i "" 's/\/blob\/master\/LICENSE/\/license.html/g' $index_dest
+sed -i "" 's/LICENSE/license.html/g' $index_dest
 
 ###
 # Build _versions/${version}.md from current README.md
@@ -37,7 +37,7 @@ version: $version
 
 cat $index_src >> $version_dest
 
-sed -i "" 's/\/blob\/master\/LICENSE/\/license.html/g' $version_dest
+sed -i "" 's/LICENSE/license.html/g' $version_dest
 
 ###
 # Build licences.md from current LICENSE
@@ -71,5 +71,5 @@ version: $version
 
 cat $changelog_src >> $changelog_dest
 
-sed -i "" 's/\/blob\/v/\/versions\//g' $changelog_dest
+sed -i "" 's/https:\/\/github.com\/coffeebrewapps\/coffeebrew_jekyll_archives\/blob\/v/\/versions\//g' $changelog_dest
 sed -i "" 's/\/README.md/.html/g' $changelog_dest
