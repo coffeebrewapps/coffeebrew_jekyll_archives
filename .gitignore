@@ -1,4 +1,8 @@
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
+*.gem
+Gemfile.lock
+spec/dest
+spec/fixtures/.jekyll-metadata
+spec/fixtures/.jekyll-cache
+.ruby-version
+.tool-versions
+_site

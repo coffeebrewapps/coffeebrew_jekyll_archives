@@ -1,0 +1,11 @@
+<nav id="top-nav" class="top-nav">
+  <a>Current: {{ page.version }}</a>
+  {% for item in site.data.navigation %}
+    <a href="{{ item.link }}" {% if (page.url == item.link) or (page.root == item.link) %}class="current"{% endif %}>
+      {{ item.name }}
+    </a>
+  {% endfor %}
+  <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </a>
+</nav>

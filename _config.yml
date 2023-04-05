@@ -1,0 +1,46 @@
+destination: ./docs
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .git
+  - .github
+  - lib
+  - script
+  - spec
+  - templates
+  - .gitignore
+  - .rspec
+  - .rubocop.yml
+  - Rakefile
+  - coffeebrew_jekyll_archives.gemspec
+  - _plugins
+  - docs
+  - _versions/.keep
+  - README.md
+  - LICENSE
+  - CHANGELOG.md
+
+plugins:
+  - jekyll-toc
+
+toc:
+  min_level: 2
+  max_level: 3
+  list_class: toc
+
+collections:
+  versions:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      toc: true
+  - scope:
+      path: ""
+      type: "versions"
+    values:
+      layout: version
