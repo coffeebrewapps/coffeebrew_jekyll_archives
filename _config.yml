@@ -1,4 +1,5 @@
 baseurl: /coffeebrew_jekyll_archives
+theme: coffeebrew_jekyll_docs
 
 destination: ./docs
 
@@ -30,6 +31,23 @@ toc:
   min_level: 2
   max_level: 3
   list_class: toc
+
+coffeebrew_jekyll_docs:
+  copyright: "Coffee Brew Apps"
+  license:
+    name: "MIT License"
+    url: "/license.html"
+  socials:
+    - link: "https://github.com/coffeebrewapps/coffeebrew_jekyll_archives"
+      icon: "fa-brands fa-github"
+    - link: "https://www.linkedin.com/company/coffeebrewapps/"
+      icon: "fa-brands fa-linkedin"
+    - link: "mailto:coffeebrewapps+hi@gmail.com"
+      icon: "fa-solid fa-envelope"
+  powered_by:
+    host:
+      link: "https://github.com"
+      name: "Github Pages"
 
 collections:
   versions:

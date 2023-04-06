@@ -6,3 +6,5 @@ gemspec
 
 gem "jekyll-readme-index"
 gem "jekyll-toc"
+
+gem "coffeebrew_jekyll_docs"
