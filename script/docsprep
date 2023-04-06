@@ -1,75 +1,86 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-set -e
+version = ARGV[0]
 
-version=$1
+root_dir = File.expand_path("../", __dir__)
 
-###
+index_src = File.join(root_dir, "README.md")
+index_src_content = File.read(index_src)
+index_src_content.gsub!("See the [LICENSE](LICENSE) file.", "See the [LICENSE]({{ site.baseurl }}/license.html) file.")
+
 # Build index.html from current README.md
-###
-index_src="README.md"
-index_dest="index.md"
-touch $index_dest
+#
+index_dest = File.join(root_dir, "index.md")
 
-echo "---
-layout: default
-title: Home
-toc: true
-version: $version
----" > $index_dest
+index_content = "---\n" \
+                "layout: default\n" \
+                "title: Home\n" \
+                "toc: true\n" \
+                "version: #{version}\n" \
+                "---\n" \
+                "#{index_src_content}"
 
-cat $index_src >> $index_dest
+File.write(index_dest, index_content)
 
-sed -i "" 's/\(.*\)LICENSE/\1{{ site.baseurl }}\/license.html/g' $index_dest
+puts "Created #{index_dest}..."
+puts File.read(index_dest)
 
-###
 # Build _versions/${version}.md from current README.md
-###
-version_dest="_versions/$version.md"
-touch $version_dest
+#
+version_dest = File.join(root_dir, "_versions", "#{version}.md")
 
-echo "---
-layout: version
-toc: true
-title: $version
-version: $version
----" > $version_dest
+version_content = "---\n" \
+                  "layout: version\n" \
+                  "toc: true\n" \
+                  "title: #{version}\n" \
+                  "version: #{version}\n" \
+                  "---\n" \
+                  "#{index_src_content}"
 
-cat $index_src >> $version_dest
+File.write(version_dest, version_content)
 
-sed -i "" 's/\(.*\)LICENSE/\1{{ site.baseurl }}\/license.html/g' $version_dest
+puts "Created #{version_dest}..."
+puts File.read(version_dest)
 
-###
 # Build licences.md from current LICENSE
-###
-license_src="LICENSE"
-license_dest="license.md"
-touch $license_dest
+#
+license_src = File.join(root_dir, "LICENSE")
+license_src_content = File.read(license_src)
 
-echo "---
-layout: default
-toc: false
-title: License
-version: $version
----" > $license_dest
+license_dest = File.join(root_dir, "license.md")
 
-cat $license_src >> $license_dest
+license_content = "---\n" \
+                  "layout: default\n" \
+                  "toc: false\n" \
+                  "title: License\n" \
+                  "version: #{version}\n" \
+                  "---\n" \
+                  "#{license_src_content}"
 
-###
+File.write(license_dest, license_content)
+
+puts "Created #{license_dest}..."
+puts File.read(license_dest)
+
 # Build versions.md from current CHANGELOG.md
-###
-changelog_src="CHANGELOG.md"
-changelog_dest="versions.md"
-touch $changelog_dest
+#
+changelog_src = File.join(root_dir, "CHANGELOG.md")
+changelog_src_content = File.read(changelog_src)
 
-echo "---
-layout: default
-toc: false
-title: Versions
-version: $version
----" > $changelog_dest
+changelog_src_content.gsub!(/https:\/\/github.com\/coffeebrewapps\/coffeebrew_jekyll_archives\/blob\/v/, "{{ site.baseurl }}\/versions\/")
+changelog_src_content.gsub!(/\/README.md/, ".html")
 
-cat $changelog_src >> $changelog_dest
+changelog_dest = File.join(root_dir, "versions.md")
 
-sed -i "" 's/https:\/\/github.com\/coffeebrewapps\/coffeebrew_jekyll_archives\/blob\/v/{{ site.baseurl }}\/versions\//g' $changelog_dest
-sed -i "" 's/\/README.md/.html/g' $changelog_dest
+changelog_content = "---\n" \
+                    "layout: default\n" \
+                    "toc: false\n" \
+                    "title: Versions\n" \
+                    "version: #{version}\n" \
+                    "---\n" \
+                    "#{changelog_src_content}"
+
+File.write(changelog_dest, changelog_content)
+
+puts "Created #{changelog_dest}..."
+puts File.read(changelog_dest)

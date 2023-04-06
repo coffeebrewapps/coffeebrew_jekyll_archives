@@ -1,18 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-set -e
+require "fileutils"
 
-version=$1
+version = ARGV[0]
 
-script/docsprep $version
+root_dir = File.expand_path("../", __dir__)
+docsprep = File.join(root_dir, "script", "docsprep")
 
-###
+system("#{docsprep} #{version}")
+
 # Build full docs/
-###
-JEKYLL_ENV=production bundle exec jekyll build
+#
+system("JEKYLL_ENV=production bundle exec jekyll build --verbose --trace")
 
-index_dest="index.md"
-license_dest="license.md"
-changelog_dest="versions.md"
+index_dest = File.join(root_dir, "index.md")
+license_dest = File.join(root_dir, "license.md")
+changelog_dest = File.join(root_dir, "versions.md")
 
-rm $index_dest $license_dest $changelog_dest
+if File.exist?(index_dest)
+  FileUtils.rm(index_dest)
+end
+
+if File.exist?(license_dest)
+  FileUtils.rm(license_dest)
+end
+
+if File.exist?(changelog_dest)
+  FileUtils.rm(changelog_dest)
+end

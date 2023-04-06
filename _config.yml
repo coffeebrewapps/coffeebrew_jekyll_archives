@@ -1,13 +1,10 @@
 baseurl: /coffeebrew_jekyll_archives
 theme: coffeebrew_jekyll_docs
 
-destination: ./docs
-
 exclude:
   - .git
   - .github
   - _versions/.keep
-  - docs
   - lib
   - pkg
   - script
