@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/coffeebrew_jekyll_archives/assets/css/styles.css">
+    <title>0.2.0</title>
+  </head>
+  <body>
+    <script src="/coffeebrew_jekyll_archives/assets/js/main.js"></script>
+    <nav id="top-nav" class="top-nav">
+  <a>Current: 0.2.0</a>
+  
+    <a href="/coffeebrew_jekyll_archives/" >
+      Home
+    </a>
+  
+    <a href="/coffeebrew_jekyll_archives/versions.html" >
+      Versions
+    </a>
+  
+  <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+    <i class="fa-solid fa-bars"></i>
+  </a>
+</nav>
+
+    <div class="container">
+      <div id="table-of-contents">
+        <div class="versions">
+          <div>
+            Versions:
+            <select id="select-version" onchange="selectVersion()">
+              
+                <option selected="selected" value="/coffeebrew_jekyll_archives/versions/0.2.0.html">0.2.0</option>
+              
+            </select>
+          </div>
+        </div>
+        <ul id="toc" class="toc">
+<li class="toc-entry toc-h2"><a href="#installation">Installation</a></li>
+<li class="toc-entry toc-h2"><a href="#configuration">Configuration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#navigation-config">Navigation config</a></li>
+<li class="toc-entry toc-h3"><a href="#depths-config">Depths config</a></li>
+<li class="toc-entry toc-h3"><a href="#title-format-config">Title format config</a></li>
+<li class="toc-entry toc-h3"><a href="#directory-and-path-config">Directory and path config</a></li>
+<li class="toc-entry toc-h3"><a href="#permalink-config">Permalink config</a></li>
+<li class="toc-entry toc-h3"><a href="#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#layout">Layout</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#root">Root</a></li>
+<li class="toc-entry toc-h3"><a href="#yearly-index">Yearly index</a></li>
+<li class="toc-entry toc-h3"><a href="#monthly-index">Monthly index</a></li>
+<li class="toc-entry toc-h3"><a href="#daily-index">Daily index</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#contributing">Contributing</a></li>
+<li class="toc-entry toc-h2"><a href="#development">Development</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#source-directory-structure">Source directory structure</a></li>
+<li class="toc-entry toc-h3"><a href="#test-cases-directory-structure">Test cases directory structure</a></li>
+<li class="toc-entry toc-h3"><a href="#writing-test-cases">Writing test cases</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#license">License</a></li>
+</ul>
+      </div>
+      <div id="content">
+        <h1 id="jekyll-archives-plugin">Jekyll Archives Plugin</h1>
+
+<p>A Jekyll plugin to generate site post archives.</p>
+
+<p><a href="https://github.com/coffeebrewapps/coffeebrew_jekyll_archives/actions/workflows/ruby.yml"><img src="https://github.com/coffeebrewapps/coffeebrew_jekyll_archives/actions/workflows/ruby.yml/badge.svg" alt="Continuous Integration" /></a> <a href="https://badge.fury.io/rb/coffeebrew_jekyll_archives"><img src="https://badge.fury.io/rb/coffeebrew_jekyll_archives.svg" alt="Gem Version" /></a></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Add this line to your site’s Gemfile:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="s1">'coffeebrew_jekyll_archives'</span>
+</code></pre></div></div>
+
+<p>And then add this line to your site’s <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">coffeebrew_jekyll_archives</span>
+</code></pre></div></div>
+
+<p>Upon building the Jekyll site, the plugin will automatically generate the archive indexes using the following default
+configuration:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">archives</span><span class="pi">:</span>
+  <span class="na">navigation</span><span class="pi">:</span>
+    <span class="na">data</span><span class="pi">:</span> <span class="s2">"</span><span class="s">navigation"</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Archives"</span>
+    <span class="na">before</span><span class="pi">:</span>
+    <span class="na">after</span><span class="pi">:</span>
+  <span class="na">depths</span><span class="pi">:</span> <span class="m">3</span>
+  <span class="na">title_format</span><span class="pi">:</span>
+    <span class="na">root</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">string"</span>
+      <span class="na">style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/"</span>
+    <span class="na">year</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">date"</span>
+      <span class="na">style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%Y"</span>
+    <span class="na">month</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">date"</span>
+      <span class="na">style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%b,</span><span class="nv"> </span><span class="s">%Y"</span>
+    <span class="na">day</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">date"</span>
+      <span class="na">style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d</span><span class="nv"> </span><span class="s">%b,</span><span class="nv"> </span><span class="s">%Y"</span>
+  <span class="na">root_dir</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/"</span>
+  <span class="na">root_basename</span><span class="pi">:</span> <span class="s2">"</span><span class="s">archives"</span>
+  <span class="na">index_root</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/archives"</span>
+  <span class="na">index_basename</span><span class="pi">:</span> <span class="s2">"</span><span class="s">index"</span>
+  <span class="na">permalink</span><span class="pi">:</span>
+    <span class="na">root</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/:root_dir"</span>
+    <span class="na">year</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/:root_dir/:index_root/:year"</span>
+    <span class="na">month</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/:root_dir/:index_root/:year/:month"</span>
+    <span class="na">day</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/:root_dir/:index_root/:year/:month/:day"</span>
+</code></pre></div></div>
+
+<p>An example of the generated directory structure is as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_site/
+├── archives
+│   └── 2023
+│       ├── 03
+│       │   ├── 30
+│       │   │   └── index.html
+│       │   └── index.html
+│       └── index.html
+├── archives.html
+└── index.html
+</code></pre></div></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>You can override any of the default configuration values above. The plugin will perform a simple validation on your
+overrides according to these rules:</p>
+
+<h3 id="navigation-config">Navigation config</h3>
+
+<p>This tells the plugin how to generate navigation menu.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Allowed Value(s)</th>
+      <th>Default</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data</td>
+      <td>String</td>
+      <td>navigation</td>
+      <td>This tells the plugin where in <code class="language-plaintext highlighter-rouge">site.data[]</code> to get the navigation data. Usually this would be set in <code class="language-plaintext highlighter-rouge">site.data["navigation"]</code>.</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>Archives</td>
+      <td>This is the name rendered in the navigation menu item.</td>
+    </tr>
+    <tr>
+      <td>before</td>
+      <td>String</td>
+      <td>nil</td>
+      <td>This tells the plugin before which existing menu item to insert the archives’ root index menu item.</td>
+    </tr>
+    <tr>
+      <td>after</td>
+      <td>String</td>
+      <td>nil</td>
+      <td>This tells the plugin after which existing menu item to insert the archives’ root index menu item.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When <code class="language-plaintext highlighter-rouge">before</code> and <code class="language-plaintext highlighter-rouge">after</code> are <code class="language-plaintext highlighter-rouge">nil</code>, the archives’ root index menu item will be appended last.</p>
+
+<p>If both <code class="language-plaintext highlighter-rouge">before</code> and <code class="language-plaintext highlighter-rouge">after</code> are configured, <code class="language-plaintext highlighter-rouge">before</code> config will be used and <code class="language-plaintext highlighter-rouge">after</code> will be ignored.</p>
+
+<h3 id="depths-config">Depths config</h3>
+
+<p>This tells the plugin what indexes to generate.</p>
+
+<p>There are 3 levels of depths:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Generate yearly index only</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Generate yearly and monthly indexes</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Generate yearly, monthly and daily indexes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="title-format-config">Title format config</h3>
+
+<p>This tells the plugin what is the format of the title to be used for the index entries.</p>
+
+<p>There are 4 titles that can be generated:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>root</td>
+      <td>This will be used for the root index entry</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>This will be used for the yearly index entries</td>
+    </tr>
+    <tr>
+      <td>month</td>
+      <td>This will be used for the monthly index entries</td>
+    </tr>
+    <tr>
+      <td>day</td>
+      <td>This will be used for the daily index entries</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For each title format, you can use one of these types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>string</td>
+      <td>A string that uses format syntax and use available variables: year, month, day, eg. <code class="language-plaintext highlighter-rouge">Archive of %{year}-%{month}-%{day}</code> will be interpreted as <code class="language-plaintext highlighter-rouge">Archive of 2023-03-12</code></td>
+    </tr>
+    <tr>
+      <td>date</td>
+      <td>A string that strictly uses Ruby date identifiers, the plugin will call <code class="language-plaintext highlighter-rouge">date.strftime()</code> on the format string, eg. <code class="language-plaintext highlighter-rouge">%d %b, %Y</code> will be interpreted as <code class="language-plaintext highlighter-rouge">12 Mar, 2023</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="directory-and-path-config">Directory and path config</h3>
+
+<p>This tells the plugin how to create the directory structure and index page file name.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Allowed Value(s)</th>
+      <th>Default</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>root_dir</td>
+      <td>String</td>
+      <td>/</td>
+      <td>This tells the plugin what is the root directory to create the root index page.</td>
+    </tr>
+    <tr>
+      <td>root_basename</td>
+      <td>String</td>
+      <td>archives</td>
+      <td>This tells the plugin what is the root index page file name, with <code class="language-plaintext highlighter-rouge">.html</code> as the extension.</td>
+    </tr>
+    <tr>
+      <td>index_root</td>
+      <td>String</td>
+      <td>/archives</td>
+      <td>This tells the plugin what is the root directory for the yearly/monthly/daily index pages to be generated.</td>
+    </tr>
+    <tr>
+      <td>index_basename</td>
+      <td>String</td>
+      <td>index</td>
+      <td>This tells the plugin what is the file name to use for the yearly/monthly/daily index pages, with <code class="language-plaintext highlighter-rouge">.html</code> as the extension.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="permalink-config">Permalink config</h3>
+
+<p>This tells the plugin how to create the directory structure of the yearly/monthly/daily index pages, and the permalink
+for the index pages will follow the directory structure.</p>
+
+<p>There are 4 levels of pages that can be generated:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>root</td>
+      <td>This will be used for the root index entry</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>This will be used for the yearly index entries</td>
+    </tr>
+    <tr>
+      <td>month</td>
+      <td>This will be used for the monthly index entries</td>
+    </tr>
+    <tr>
+      <td>day</td>
+      <td>This will be used for the daily index entries</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A few placeholders are available to be used in the permalink:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>root_dir</td>
+      <td>This will be the root directory where the root index page is created.</td>
+    </tr>
+    <tr>
+      <td>index_root</td>
+      <td>This will be the root directory where the yearly/monthly/daily index pages are created.</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>This will be the current year of the current index page. If the current page is the root index, then <code class="language-plaintext highlighter-rouge">year</code> will always be <code class="language-plaintext highlighter-rouge">0001</code>.</td>
+    </tr>
+    <tr>
+      <td>month</td>
+      <td>This will be the current month of the current index page. If the current page is a yearly index, then <code class="language-plaintext highlighter-rouge">month</code> will always be <code class="language-plaintext highlighter-rouge">01</code>.</td>
+    </tr>
+    <tr>
+      <td>day</td>
+      <td>This will be the current day of the current index page. If the current page is a yearly or monthly index, then <code class="language-plaintext highlighter-rouge">day</code> will always be <code class="language-plaintext highlighter-rouge">01</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="validation">Validation</h3>
+
+<p>If the config overrides have invalid structure, keys or values, the plugin will raise a
+<code class="language-plaintext highlighter-rouge">Jekyll::Errors::InvalidConfigurationError</code> during build.</p>
+
+<h2 id="layout">Layout</h2>
+
+<p>The plugin does not provide a default layout. You will need to create your own layout in <code class="language-plaintext highlighter-rouge">_layouts</code> and configure the
+defaults in <code class="language-plaintext highlighter-rouge">_config.yml</code>:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">defaults</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">scope</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">archives"</span>
+    <span class="na">values</span><span class="pi">:</span>
+      <span class="na">layout</span><span class="pi">:</span> <span class="s2">"</span><span class="s">archive"</span>
+      <span class="na">permalink</span><span class="pi">:</span> <span class="s">/:path/:basename:output_ext</span>
+</code></pre></div></div>
+
+<p>In addition to Jekyll’s default page data, you can also use the page data generated by the plugin in the layout:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>dir</td>
+      <td>The current index page directory.</td>
+    </tr>
+    <tr>
+      <td>sub_pages</td>
+      <td>The current index page’s sub-pages according to the hierarchy of: 1) root, 2) yearly, 3) monthly, 4) daily. If the current page is the daily index page, then there will be no sub-pages.</td>
+    </tr>
+    <tr>
+      <td>root</td>
+      <td>The root index page absolute url. This is useful if you need to highlight the archives’ root navigation menu item while displaying the nested index pages.</td>
+    </tr>
+    <tr>
+      <td>ancestors</td>
+      <td>The ancestors of the current page. This is useful if you need to render a tree view of the ancestor pages relative to the current page.</td>
+    </tr>
+    <tr>
+      <td>parent</td>
+      <td>The immediate parent of the current page.</td>
+    </tr>
+    <tr>
+      <td>collection</td>
+      <td>The posts collection under the current index page, eg. if the current page is a monthly index page, then all the current month’s posts will be available.</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>The title generated for the current page according to the <code class="language-plaintext highlighter-rouge">title_format</code> config.</td>
+    </tr>
+    <tr>
+      <td>year</td>
+      <td>The current year of the current index page. If the current page is the root index, then <code class="language-plaintext highlighter-rouge">year</code> will always be <code class="language-plaintext highlighter-rouge">0001</code>.</td>
+    </tr>
+    <tr>
+      <td>month</td>
+      <td>The current month of the current index page. If the current page is a yearly index, then <code class="language-plaintext highlighter-rouge">month</code> will always be <code class="language-plaintext highlighter-rouge">01</code>.</td>
+    </tr>
+    <tr>
+      <td>day</td>
+      <td>The current day of the current index page. If the current page is a yearly or monthly index, then <code class="language-plaintext highlighter-rouge">day</code> will always be <code class="language-plaintext highlighter-rouge">01</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An example of a layout that is used by the plugin’s test cases:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: default
+---
+<span class="nt">&lt;h1&gt;</span>Archives of 0.2.0<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"archives"</span><span class="nt">&gt;</span>
+  
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>
+          <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/versions/0.2.0.html"</span><span class="nt">&gt;</span>0.2.0<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        
+          <span class="nt">&lt;ul&gt;</span>
+            
+              <span class="nt">&lt;li&gt;</span>
+                <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-file"</span><span class="nt">&gt;&lt;/i&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">""</span><span class="nt">&gt;</span> - <span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;/li&gt;</span>
+            
+          <span class="nt">&lt;/ul&gt;</span>
+        
+      <span class="nt">&lt;/ul&gt;</span>
+  
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>The resulting index pages are as such:</p>
+
+<h3 id="root">Root</h3>
+
+<p>Generated at: <code class="language-plaintext highlighter-rouge">_site/archives.html</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>/<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;nav&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/about.html"</span><span class="nt">&gt;</span>About<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/articles.html"</span><span class="nt">&gt;</span>Articles<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/projects.html"</span><span class="nt">&gt;</span>Projects<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives.html"</span><span class="nt">&gt;</span>Archives<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/nav&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1&gt;</span>Archives of /<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"archives"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives.html"</span><span class="nt">&gt;</span>/<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+              <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/index.html"</span><span class="nt">&gt;</span>2021<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+              <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2022/index.html"</span><span class="nt">&gt;</span>2022<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+              <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2023/index.html"</span><span class="nt">&gt;</span>2023<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="yearly-index">Yearly index</h3>
+
+<p>Generated at: <code class="language-plaintext highlighter-rouge">_site/2021/index.html</code> for the year of 2021.</p>
+
+<p>Note: Header and navigation elements omitted for clarity.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Archives of 2021<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"archives"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives.html"</span><span class="nt">&gt;</span>/<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>
+          <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/index.html"</span><span class="nt">&gt;</span>2021<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/03/index.html"</span><span class="nt">&gt;</span>Mar, 2021<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/05/index.html"</span><span class="nt">&gt;</span>May, 2021<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="monthly-index">Monthly index</h3>
+
+<p>Generated at: <code class="language-plaintext highlighter-rouge">_site/2021/03/index.html</code> for the month of March 2021.</p>
+
+<p>Note: Header and navigation elements omitted for clarity.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Archives of Mar, 2021<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"archives"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives.html"</span><span class="nt">&gt;</span>/<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>
+          <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/index.html"</span><span class="nt">&gt;</span>2021<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/03/index.html"</span><span class="nt">&gt;</span>Mar, 2021<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+              <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/03/12/index.html"</span><span class="nt">&gt;</span>12 Mar, 2021<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+              <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/03/28/index.html"</span><span class="nt">&gt;</span>28 Mar, 2021<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="daily-index">Daily index</h3>
+
+<p>Generated at: <code class="language-plaintext highlighter-rouge">_site/2021/03/12/index.html</code> for the day of 12 March 2021.</p>
+
+<p>Note: Header and navigation elements omitted for clarity.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Archives of 12 Mar, 2021<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"archives"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives.html"</span><span class="nt">&gt;</span>/<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>
+          <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/index.html"</span><span class="nt">&gt;</span>2021<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/03/index.html"</span><span class="nt">&gt;</span>Mar, 2021<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+              <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-calendar-days"</span><span class="nt">&gt;&lt;/i&gt;</span>
+              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/archives/2021/03/12/index.html"</span><span class="nt">&gt;</span>12 Mar, 2021<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;ul&gt;</span>
+              <span class="nt">&lt;li&gt;</span>
+                <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa-solid fa-file"</span><span class="nt">&gt;&lt;/i&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/2021/03/12/test-post-1.html"</span><span class="nt">&gt;</span>12 Mar, 2021 - This is test post 1<span class="nt">&lt;/a&gt;</span>
+              <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;/ul&gt;</span>
+          <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>Contribution to the gem is very much welcome!</p>
+
+<ol>
+  <li>Fork it (https://github.com/coffeebrewapps/coffeebrew_jekyll_archives/fork).</li>
+  <li>Create your feature branch (<code class="language-plaintext highlighter-rouge">git checkout -b my-new-feature</code>).</li>
+  <li>Make sure you have setup the repo correctly so that you can run RSpec and Rubocop on your changes. Read more under the <a href="#development">Development</a> section.</li>
+  <li>Commit your changes (<code class="language-plaintext highlighter-rouge">git commit -am 'Add some feature'</code>).</li>
+  <li>If you have added something that is worth mentioning in the README, please also update the README.md accordingly and commit the changes.</li>
+  <li>Push to the branch (<code class="language-plaintext highlighter-rouge">git push origin my-new-feature</code>).</li>
+  <li>Create a new Pull Request.</li>
+</ol>
+
+<p>The repo owner will try to respond to a new PR as soon as possible.</p>
+
+<h2 id="development">Development</h2>
+
+<p>We want to provide a robust gem as much as possible for the users, so writing test cases will be required for any new
+feature.</p>
+
+<p>If you are contributing to the gem, please make sure you have setup your development environment correctly so that
+RSpec and Rubocop can run properly.</p>
+
+<ol>
+  <li>After forking the repo, go into the repo directory (<code class="language-plaintext highlighter-rouge">cd coffeebrew_jekyll_archives/</code>).</li>
+  <li>Make sure you have the correct Ruby version installed. This gem requires Ruby &gt;= 2.7.0.</li>
+  <li>Once you have the correct Ruby version, install the development dependencies (<code class="language-plaintext highlighter-rouge">bundle install</code>).</li>
+  <li>To test that you have everything installed correctly, run the test cases (<code class="language-plaintext highlighter-rouge">bundle exec rspec</code>).</li>
+  <li>You should see all test cases pass successfully.</li>
+</ol>
+
+<h3 id="source-directory-structure">Source directory structure</h3>
+
+<p>All the gem logic lives in the <code class="language-plaintext highlighter-rouge">/lib</code> directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lib
+├── coffeebrew_jekyll_archives
+│   ├── config.yml
+│   ├── generator.rb
+│   ├── page.rb
+│   ├── validator.rb
+│   └── version.rb
+└── coffeebrew_jekyll_archives.rb
+</code></pre></div></div>
+
+<p>The files that are currently in the repo:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lib/coffeebrew_jekyll_archives/config.yml</code></td>
+      <td>This contains the default configuration for the plugin to generate the archive indexes.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lib/coffeebrew_jekyll_archives/generator.rb</code></td>
+      <td>This is the generator that reads the configuration and generate the index pages.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lib/coffeebrew_jekyll_archives/page.rb</code></td>
+      <td>This is the abstract model of the index pages.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lib/coffeebrew_jekyll_archives/validator.rb</code></td>
+      <td>This validates the configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lib/coffeebrew_jekyll_archives/version.rb</code></td>
+      <td>This contains the version number of the gem.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">lib/coffeebrew_jekyll_archives.rb</code></td>
+      <td>This is the entry point of the gem, and it loads the dependencies.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="test-cases-directory-structure">Test cases directory structure</h3>
+
+<p>All the test cases and fixtures live in the <code class="language-plaintext highlighter-rouge">/spec</code> directory:</p>
+
+<p>Note: Some files have been omitted for clarity.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spec
+├── coffeebrew_jekyll_archives_spec.rb
+├── dest
+├── fixtures
+│   ├── _config.yml
+│   ├── _data
+│   │   └── navigation.yml
+│   ├── _includes
+│   │   └── navigation.html
+│   ├── _layouts
+│   │   ├── archive.html
+│   │   └── default.html
+│   └── _posts
+│       ├── 2021-03-12-test-post-1.md
+│       ├── 2021-03-28-test-post-2.md
+│       ├── 2021-05-03-test-post-3.md
+│       ├── 2021-05-03-test-post-4.md
+│       ├── 2022-01-27-test-post-5.md
+│       ├── 2022-03-12-test-post-6.md
+│       ├── 2022-11-23-test-post-7.md
+│       └── 2023-02-21-test-post-8.md
+├── scenarios
+│   ├── default
+│   │   ├── _site
+│   │   │   ├── archives
+│   │   │   │   ├── 2021
+│   │   │   │   │   ├── 03
+│   │   │   │   │   │   ├── 12
+│   │   │   │   │   │   │   └── index.html
+│   │   │   │   │   │   ├── 28
+│   │   │   │   │   │   │   └── index.html
+│   │   │   │   │   │   └── index.html
+│   │   │   │   │   ├── 05
+│   │   │   │   │   │   ├── 03
+│   │   │   │   │   │   │   └── index.html
+│   │   │   │   │   │   └── index.html
+│   │   │   │   │   └── index.html
+│   │   │   │   └── 2023
+│   │   │   │       ├── 02
+│   │   │   │       │   ├── 21
+│   │   │   │       │   │   └── index.html
+│   │   │   │       │   └── index.html
+│   │   │   │       └── index.html
+│   │   │   └── archives.html
+│   │   └── context.rb
+│   └── invalid_config_keys
+│       └── context.rb
+└── spec_helper.rb
+</code></pre></div></div>
+
+<p>The files that are currently in the repo:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/coffeebrew_jekyll_archives_spec.rb</code></td>
+      <td>This is the main RSpec file to be executed. It contains all the contexts of various scenarios.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/dest/</code></td>
+      <td>This directory is where generated files are located. It will be deleted immediately after each context is executed.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/fixtures/</code></td>
+      <td>This directory follows the Jekyll site source structure and contains the minimal files required to generate the archive index pages.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/fixtures/_posts</code></td>
+      <td>This directory contains the test posts, you can add more to it to test your new feature.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/scenarios/</code></td>
+      <td>This directory contains the expected files of various test scenarios.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/scenarios/&lt;scenario&gt;/</code></td>
+      <td>This is the scenario name.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/scenarios/&lt;scenario&gt;/_site/</code></td>
+      <td>This directory contains the expected archive index pages.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/scenarios/&lt;scenario&gt;/context.rb</code></td>
+      <td>This is the file that sets up the context for the test case.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/spec_helper.rb</code></td>
+      <td>This contains RSpec configuration and certain convenience methods for the main RSpec file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="writing-test-cases">Writing test cases</h3>
+
+<p>There is a certain convention to follow when writing new test scenarios. The recommendation is to use the rake tasks
+provided in the gem to generate the scenario files.</p>
+
+<p>For success scenarios, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>rake coffeebrew:jekyll:archives:test:create_success[test_scenario]
+</code></pre></div></div>
+
+<p>This will generate a placeholder file and directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spec
+├── coffeebrew_jekyll_archives_spec.rb
+├── scenarios
+│   └── test_scenario
+│       ├── _site
+│       └── context.rb
+└── spec_helper.rb
+</code></pre></div></div>
+
+<p>Where the <code class="language-plaintext highlighter-rouge">context.rb</code> file will be pre-populated:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># frozen_string_literal: true</span>
+
+<span class="no">CONTEXT_TEST_SCENARIO</span> <span class="o">=</span> <span class="s2">"when using test_scenario config"</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">shared_context</span> <span class="no">CONTEXT_TEST_SCENARIO</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:scenario</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"test_scenario"</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:overrides</span><span class="p">)</span> <span class="p">{}</span> <span class="c1"># TODO: remove if unused</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:generated_files</span><span class="p">)</span> <span class="p">{}</span> <span class="c1"># TODO: remove if unused</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:expected_files</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">[</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>For failure scenarios, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>rake coffeebrew:jekyll:archives:test:create_failure[test_scenario]
+</code></pre></div></div>
+
+<p>This will generate a placeholder file and directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spec
+├── coffeebrew_jekyll_archives_spec.rb
+├── scenarios
+│   └── test_scenario
+│       └── context.rb
+└── spec_helper.rb
+</code></pre></div></div>
+
+<p>Where the <code class="language-plaintext highlighter-rouge">context.rb</code> file will be pre-populated:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># frozen_string_literal: true</span>
+
+<span class="no">CONTEXT_TEST_SCENARIO</span> <span class="o">=</span> <span class="s2">"when using test_scenario config"</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">shared_context</span> <span class="no">CONTEXT_TEST_SCENARIO</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:scenario</span><span class="p">)</span> <span class="p">{</span> <span class="s2">"test_scenario"</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:generated_files</span><span class="p">)</span> <span class="p">{</span> <span class="p">[]</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:expected_files</span><span class="p">)</span> <span class="p">{</span> <span class="p">[]</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:overrides</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:expected_errors</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">[</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>If you do write other test cases that are not asserting the generated files like above, you can initiate your
+convention. The repo owner will evaluate the PR and accept the convention if it fits the repo existing convention, or
+will recommend an alternative if it doesn’t.</p>
+
+<h2 id="license">License</h2>
+
+<p>See the <a href="LICENSE">LICENSE</a> file.</p>
+
+
+      </div>
+    </div>
+    <a class="back-to-top" href="#">
+      <i class="fa-solid fa-angle-up"></i>
+    </a>
+    <footer class="site-footer">
+      <div class="copyright">
+        <span>Coffee Brew Apps © 2023</span>
+      </div>
+      <div class="socials">
+        
+        <a href="https://github.com/coffeebrewapps/coffeebrew_jekyll_archives" target="_blank"><i class="fa-brands fa-github"></i></a>
+        
+        <a href="https://www.linkedin.com/company/coffeebrewapps/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        
+        <a href="mailto:coffeebrewapps+hi@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+        
+      </div>
+      <div class="powered-by">
+        <div class="link">Powered by <a href="https://jekyllrb.com" target="_blank">Jekyll</a></div>
+        <div class="divider">|</div>
+        <div class="link">Theme by <a href="https://www.coffeebrewapps.com/coffeebrew_jekyll_docs/" target="_blank">Coffee Brew Apps</a></div>
+        <div class="divider">|</div>
+        <div class="link">Hosted by <a href="https://github.com" target="_blank">Github Pages</a></div>
+        <div class="divider">|</div>
+        <div class="link">Under <a href="/coffeebrew_jekyll_archives/license.html" target="_blank">MIT License</a></div>
+      </div>
+    </footer>
+  </body>
+</html>
