@@ -8,13 +8,15 @@ jobs:
     if: "github.repository_owner == 'coffeebrewapps'"
     name: 'Release Gem (Ruby ${{ matrix.ruby-version }})'
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_PATH: "vendor/bundle"
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+
     strategy:
       fail-fast: true
       matrix:
         ruby-version:
-          - 2.7
-          - 3.0
-          - 3.1
           - 3.2
 
     steps:
@@ -24,6 +26,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
       - name: Build and Publish Gem
         uses: ashmaroli/release-gem@dist
         with:
