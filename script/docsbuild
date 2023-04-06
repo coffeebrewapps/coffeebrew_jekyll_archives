@@ -9,7 +9,7 @@ script/docsprep $version
 ###
 # Build full docs/
 ###
-bundle exec jekyll build
+JEKYLL_ENV=production bundle exec jekyll build
 
 index_dest="index.md"
 license_dest="license.md"

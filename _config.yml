@@ -1,3 +1,5 @@
+baseurl: /coffeebrew_jekyll_archives
+
 destination: ./docs
 
 exclude:
