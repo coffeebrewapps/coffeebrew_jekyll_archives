@@ -1,11 +1,7 @@
 name: Release Gem
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - lib/**/version.rb
+  workflow_dispatch:
 
 jobs:
   release:
