@@ -2,16 +2,7 @@
 
 require "fileutils"
 
-version = ARGV[0]
-
 root_dir = File.expand_path("../", __dir__)
-docsprep = File.join(root_dir, "script", "docsprep")
-
-system("#{docsprep} #{version}")
-
-# Build full docs/
-#
-system("bundle exec jekyll serve --baseurl ''")
 
 index_dest = File.join(root_dir, "index.md")
 license_dest = File.join(root_dir, "license.md")
