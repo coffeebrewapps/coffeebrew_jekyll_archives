@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A Jekyll plugin to generate blog post archives}
   spec.description   = %q{A Jekyll plugin to generate blog post archives}
-  spec.homepage      = "https://github.com/coffeebrewapps/coffeebrew_jekyll_archives"
+  spec.homepage      = "https://coffeebrewapps.com/coffeebrew_jekyll_archives"
   spec.license       = "MIT"
 
   if spec.respond_to?(:metadata)
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.files            = Dir["lib/**/*.rb"]
-  spec.extra_rdoc_files = Dir["README.md", "CHANGELOG.md", "LICENSE.txt"]
+  spec.extra_rdoc_files = Dir["README.md", "CHANGELOG.md", "LICENSE"]
   spec.test_files       = spec.files.grep(%r!^spec/!)
   spec.require_paths    = ["lib/coffeebrew_jekyll_archives", "lib"]
 
@@ -37,4 +37,3 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rake", "~> 0.6.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.19.0"
 end
-
