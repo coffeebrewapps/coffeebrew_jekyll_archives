@@ -16,7 +16,7 @@
             Versions:
             <select id="select-version" onchange="selectVersion()">
               {% for version in site.versions %}
-                <option {% if version.version == page.version %}selected="selected"{% endif %} value="{{ version.url }}">{{ version.version }}</option>
+                <option {% if version.version == page.version %}selected="selected"{% endif %} value="{{ site.baseurl }}{{ version.url }}">{{ version.version }}</option>
               {% endfor %}
             </select>
           </div>
