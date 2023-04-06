@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  spec.files            = Dir["lib/**/*.rb"]
+  spec.files            = Dir["lib/**/*.rb", "lib/**/*.yml"]
   spec.extra_rdoc_files = Dir["README.md", "CHANGELOG.md", "LICENSE"]
   spec.test_files       = spec.files.grep(%r!^spec/!)
   spec.require_paths    = ["lib/coffeebrew_jekyll_archives", "lib"]
