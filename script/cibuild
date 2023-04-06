@@ -3,6 +3,5 @@
 set -e
 
 script/install
-script/test
 script/lint
-bundle exec rake build
+script/test

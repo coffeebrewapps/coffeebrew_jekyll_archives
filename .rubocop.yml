@@ -15,6 +15,7 @@ AllCops:
     - spec/scenarios/**/*
     - spec/spec_helper.rb
     - templates/**/*
+    - vendor/**/*
   NewCops: enable
 
 Style/StringLiterals:
