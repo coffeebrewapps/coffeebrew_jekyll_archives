@@ -10,7 +10,7 @@ on:
 jobs:
   release:
     if: "github.repository_owner == 'coffeebrewapps'"
-    name: 'Release Gem (Ruby ${{ matrix.ruby_version }})'
+    name: 'Release Gem (Ruby ${{ matrix.ruby-version }})'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -24,10 +24,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: 'Set up Ruby ${{ matrix.ruby_version }}'
+      - name: 'Set up Ruby ${{ matrix.ruby-version }}'
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby_version }}
+          ruby-version: ${{ matrix.ruby-version }}
       - name: Build and Publish Gem
         uses: ashmaroli/release-gem@dist
         with:
