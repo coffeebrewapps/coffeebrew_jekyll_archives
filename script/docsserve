@@ -9,7 +9,7 @@ script/docsprep $version
 ###
 # Serve docs/
 ###
-bundle exec jekyll serve
+bundle exec jekyll serve --baseurl ''
 
 index_dest="index.md"
 license_dest="license.md"
