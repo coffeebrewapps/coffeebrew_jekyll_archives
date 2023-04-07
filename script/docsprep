@@ -1,6 +1,18 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
+require "logger"
+
+logger = Logger.new($stdout)
+logger.level = Logger::DEBUG
+
 version = ARGV[0]
+
+if version.nil?
+  logger.error "Missing version..."
+  exit 0
+end
 
 root_dir = File.expand_path("../", __dir__)
 
@@ -22,8 +34,8 @@ index_content = "---\n" \
 
 File.write(index_dest, index_content)
 
-puts "Created #{index_dest}..."
-puts File.read(index_dest)
+logger.debug "Created #{index_dest}..."
+logger.debug File.read(index_dest)
 
 # Build _versions/${version}.md from current README.md
 #
@@ -39,8 +51,8 @@ version_content = "---\n" \
 
 File.write(version_dest, version_content)
 
-puts "Created #{version_dest}..."
-puts File.read(version_dest)
+logger.debug "Created #{version_dest}..."
+logger.debug File.read(version_dest)
 
 # Build licences.md from current LICENSE
 #
@@ -59,16 +71,17 @@ license_content = "---\n" \
 
 File.write(license_dest, license_content)
 
-puts "Created #{license_dest}..."
-puts File.read(license_dest)
+logger.debug "Created #{license_dest}..."
+logger.debug File.read(license_dest)
 
 # Build versions.md from current CHANGELOG.md
 #
 changelog_src = File.join(root_dir, "CHANGELOG.md")
 changelog_src_content = File.read(changelog_src)
 
-changelog_src_content.gsub!(/https:\/\/github.com\/coffeebrewapps\/coffeebrew_jekyll_archives\/blob\/v/, "{{ site.baseurl }}\/versions\/")
-changelog_src_content.gsub!(/\/README.md/, ".html")
+changelog_src_content.gsub!(%r{https://github.com/coffeebrewapps/coffeebrew_jekyll_archives/blob/v},
+                            "{{ site.baseurl }}/versions/")
+changelog_src_content.gsub!(%r{/README.md}, ".html")
 
 changelog_dest = File.join(root_dir, "versions.md")
 
@@ -82,5 +95,5 @@ changelog_content = "---\n" \
 
 File.write(changelog_dest, changelog_content)
 
-puts "Created #{changelog_dest}..."
-puts File.read(changelog_dest)
+logger.debug "Created #{changelog_dest}..."
+logger.debug File.read(changelog_dest)

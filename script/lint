@@ -8,4 +8,5 @@ success=$?
 if ((success != 0)); then
    echo -e "\nTry running \`script/lint -a\` to automatically fix errors"
 fi
+rm .rubocop-https*yml
 exit $success
