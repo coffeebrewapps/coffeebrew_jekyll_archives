@@ -2,6 +2,7 @@
 set -e
 
 echo "RuboCop $(bundle exec rubocop --version)"
+echo "Files to inspect: $(bundle exec rubocop -L)"
 bundle exec rubocop -D -E $@
 success=$?
 if ((success != 0)); then
