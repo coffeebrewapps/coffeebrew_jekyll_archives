@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require "fileutils"
 
 root_dir = File.expand_path("../", __dir__)
@@ -8,14 +10,6 @@ index_dest = File.join(root_dir, "index.md")
 license_dest = File.join(root_dir, "license.md")
 changelog_dest = File.join(root_dir, "versions.md")
 
-if File.exist?(index_dest)
-  FileUtils.rm(index_dest)
-end
-
-if File.exist?(license_dest)
-  FileUtils.rm(license_dest)
-end
-
-if File.exist?(changelog_dest)
-  FileUtils.rm(changelog_dest)
-end
+FileUtils.rm_f(index_dest)
+FileUtils.rm_f(license_dest)
+FileUtils.rm_f(changelog_dest)

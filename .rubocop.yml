@@ -1,3 +1,11 @@
+inherit_from:
+  - https://raw.githubusercontent.com/rubocop/rubocop/v1.45.1/config/default.yml
+
+inherit_mode:
+  merge:
+    - Include
+    - Exclude
+
 require:
   - rubocop-jekyll
   - rubocop-rake
@@ -5,17 +13,10 @@ require:
 
 AllCops:
   TargetRubyVersion: 2.7
-  Include:
-    - lib/**/*.rb
-    - spec/**/*.rb
   Exclude:
-    - .github/**/*
-    - script/**/*
     - spec/fixtures/**/*
     - spec/scenarios/**/*
-    - spec/spec_helper.rb
     - templates/**/*
-    - vendor/**/*
   NewCops: enable
 
 Style/StringLiterals:
@@ -26,6 +27,7 @@ Style/Documentation:
 
 Metrics/BlockLength:
   Exclude:
+    - Rakefile
     - spec/**/*_spec.rb
 
 RSpec/MultipleExpectations:
