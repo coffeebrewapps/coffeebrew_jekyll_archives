@@ -7,7 +7,6 @@ RSpec.shared_context CONTEXT_FILENAME do
   let(:overrides) do
     {
       "archives" => {
-        "root" => "/blog/chronicles.html",
         "navigation" => {
           "name" => "Chronicles"
         },

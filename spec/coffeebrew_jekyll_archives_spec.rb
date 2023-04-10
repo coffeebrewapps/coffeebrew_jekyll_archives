@@ -60,36 +60,52 @@ RSpec.describe(Coffeebrew::Jekyll::Archives) do
       end
     end
 
-    include_context CONTEXT_DEFAULT do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_DEFAULT do
+      include_context CONTEXT_DEFAULT do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_BEFORE_NAVIGATION do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_BEFORE_NAVIGATION do
+      include_context CONTEXT_BEFORE_NAVIGATION do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_AFTER_NAVIGATION do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_AFTER_NAVIGATION do
+      include_context CONTEXT_AFTER_NAVIGATION do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_DEPTH_ONE do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_DEPTH_ONE do
+      include_context CONTEXT_DEPTH_ONE do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_DEPTH_TWO do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_DEPTH_TWO do
+      include_context CONTEXT_DEPTH_TWO do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_TITLE_FORMAT do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_TITLE_FORMAT do
+      include_context CONTEXT_TITLE_FORMAT do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_FILENAME do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_FILENAME do
+      include_context CONTEXT_FILENAME do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_PERMALINK do
-      it_behaves_like SUCCESS_EXAMPLE
+    context CONTEXT_PERMALINK do
+      include_context CONTEXT_PERMALINK do
+        it_behaves_like SUCCESS_EXAMPLE
+      end
     end
   end
 
@@ -109,12 +125,16 @@ RSpec.describe(Coffeebrew::Jekyll::Archives) do
       end
     end
 
-    include_context CONTEXT_INVALID_CONFIG_VALUES do
-      it_behaves_like FAILURE_EXAMPLE
+    context CONTEXT_INVALID_CONFIG_VALUES do
+      include_context CONTEXT_INVALID_CONFIG_VALUES do
+        it_behaves_like FAILURE_EXAMPLE
+      end
     end
 
-    include_context CONTEXT_INVALID_CONFIG_KEYS do
-      it_behaves_like FAILURE_EXAMPLE
+    context CONTEXT_INVALID_CONFIG_KEYS do
+      include_context CONTEXT_INVALID_CONFIG_KEYS do
+        it_behaves_like FAILURE_EXAMPLE
+      end
     end
   end
 end
