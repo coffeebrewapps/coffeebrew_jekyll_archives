@@ -28,6 +28,7 @@ namespace :coffeebrew do
           content = format(template_content, scenario_name: scenario_name, scenario_name_upcase: scenario_name_upcase)
           scenario_dir = File.join(SCENARIO_DIR, scenario_name)
           scenario_file = File.join(scenario_dir, "context.rb")
+          config_file = File.join(scenario_dir, "_config.yml")
           site_dir = File.join(scenario_dir, "_site")
 
           exit 0 if File.exist?(scenario_dir)
@@ -35,6 +36,7 @@ namespace :coffeebrew do
           FileUtils.mkdir(scenario_dir)
           FileUtils.mkdir(site_dir)
           File.write(scenario_file, content)
+          File.write(config_file, "archives:")
 
           logger.debug "Created new success scenario in #{scenario_dir}: "
           system("ls -lG #{scenario_dir}")
@@ -49,11 +51,13 @@ namespace :coffeebrew do
           content = format(template_content, scenario_name: scenario_name, scenario_name_upcase: scenario_name_upcase)
           scenario_dir = File.join(SCENARIO_DIR, scenario_name)
           scenario_file = File.join(scenario_dir, "context.rb")
+          config_file = File.join(scenario_dir, "_config.yml")
 
           exit 0 if File.exist?(scenario_dir)
 
           FileUtils.mkdir(scenario_dir)
           File.write(scenario_file, content)
+          File.write(config_file, "archives:")
 
           logger.debug "Created new failure scenario in #{scenario_dir}: "
           system("ls -lG #{scenario_dir}")

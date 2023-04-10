@@ -1,0 +1,6 @@
+archives:
+  permalink:
+    root: "/:root_dir/:index_root"
+    year: "/:root_dir/:year"
+    month: "/:root_dir/:year/:month"
+    day: "/:root_dir/:year/:month/:day"

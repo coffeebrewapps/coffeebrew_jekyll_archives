@@ -4,13 +4,6 @@ CONTEXT_DEPTH_ONE = "when using depths=1"
 
 RSpec.shared_context CONTEXT_DEPTH_ONE do
   let(:scenario) { "depth_one" }
-  let(:overrides) do
-    {
-      "archives" => {
-        "depths" => 1
-      }
-    }
-  end
   let(:expected_files) do
     [
       # Main index

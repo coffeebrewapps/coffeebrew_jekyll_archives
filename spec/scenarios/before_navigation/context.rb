@@ -4,15 +4,6 @@ CONTEXT_BEFORE_NAVIGATION = "when navigation is set to before an existing item"
 
 RSpec.shared_context CONTEXT_BEFORE_NAVIGATION do
   let(:scenario) { "before_navigation" }
-  let(:overrides) do
-    {
-      "archives" => {
-        "navigation" => {
-          "before" => "Projects"
-        }
-      }
-    }
-  end
   let(:expected_files) do
     [
       # Main index

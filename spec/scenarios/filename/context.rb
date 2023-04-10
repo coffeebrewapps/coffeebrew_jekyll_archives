@@ -4,20 +4,6 @@ CONTEXT_FILENAME = "when using different filename configs"
 
 RSpec.shared_context CONTEXT_FILENAME do
   let(:scenario) { "filename" }
-  let(:overrides) do
-    {
-      "archives" => {
-        "root" => "/blog/chronicles.html",
-        "navigation" => {
-          "name" => "Chronicles"
-        },
-        "root_dir" => "/blog",
-        "root_basename" => "chronicles",
-        "index_root" => "/chronicles",
-        "index_basename" => "page"
-      }
-    }
-  end
   let(:generated_files) { Dir[dest_dir("blog", "chronicles.html"), dest_dir("blog", "chronicles", "**", "*.html")] }
   let(:expected_files) do
     [
