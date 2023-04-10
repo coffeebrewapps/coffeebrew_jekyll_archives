@@ -774,8 +774,10 @@ RSpec and Rubocop can run properly.</p>
 │   │   │   │       │   └── index.html
 │   │   │   │       └── index.html
 │   │   │   └── archives.html
+│   │   ├── _config.yml
 │   │   └── context.rb
 │   └── invalid_config_keys
+│       ├── _config.yml
 │       └── context.rb
 └── spec_helper.rb
 </code></pre></div></div>
@@ -819,6 +821,10 @@ RSpec and Rubocop can run properly.</p>
       <td>This directory contains the expected archive index pages.</td>
     </tr>
     <tr>
+      <td><code class="language-plaintext highlighter-rouge">spec/scenarios/&lt;scenario&gt;/_config.yml</code></td>
+      <td>This contains the config overrides for the scenario.</td>
+    </tr>
+    <tr>
       <td><code class="language-plaintext highlighter-rouge">spec/scenarios/&lt;scenario&gt;/context.rb</code></td>
       <td>This is the file that sets up the context for the test case.</td>
     </tr>
@@ -846,6 +852,7 @@ provided in the gem to generate the scenario files.</p>
 ├── scenarios
 │   └── test_scenario
 │       ├── _site
+│       ├── _config.yml
 │       └── context.rb
 └── spec_helper.rb
 </code></pre></div></div>
@@ -878,6 +885,7 @@ provided in the gem to generate the scenario files.</p>
 ├── coffeebrew_jekyll_archives_spec.rb
 ├── scenarios
 │   └── test_scenario
+│       ├── _config.yml
 │       └── context.rb
 └── spec_helper.rb
 </code></pre></div></div>
@@ -910,7 +918,7 @@ will recommend an alternative if it doesn’t.</p>
 
 <h2 id="license">License</h2>
 
-<p>See the <a href="LICENSE">LICENSE</a> file.</p>
+<p>See the <a href="/coffeebrew_jekyll_archives/license.html">LICENSE</a> file.</p>
 
       </div>
     </div>
