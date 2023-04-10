@@ -4,15 +4,6 @@ CONTEXT_AFTER_NAVIGATION = "when navigation is set to after an existing item"
 
 RSpec.shared_context CONTEXT_AFTER_NAVIGATION do
   let(:scenario) { "after_navigation" }
-  let(:overrides) do
-    {
-      "archives" => {
-        "navigation" => {
-          "after" => "About"
-        }
-      }
-    }
-  end
   let(:expected_files) do
     [
       # Main index

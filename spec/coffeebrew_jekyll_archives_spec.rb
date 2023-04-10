@@ -18,7 +18,13 @@ SUCCESS_EXAMPLE = "generates a page for each depth of posts with correct navigat
 FAILURE_EXAMPLE = "raises Jekyll::Errors::InvalidConfigurationError"
 
 RSpec.describe(Coffeebrew::Jekyll::Archives) do
-  let(:overrides) { {} }
+  let(:overrides) do
+    override_config_file = expected_dir(scenario, "_config.yml")
+    return {} unless File.exist?(override_config_file)
+
+    YAML.safe_load(File.read(override_config_file))
+  end
+
   let(:config) do
     Jekyll.configuration(
       Jekyll::Utils.deep_merge_hashes(

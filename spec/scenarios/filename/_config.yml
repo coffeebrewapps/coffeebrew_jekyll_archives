@@ -1,0 +1,7 @@
+archives:
+  navigation:
+   name: "Chronicles"
+  root_dir: "/blog"
+  root_basename: "chronicles"
+  index_root: "/chronicles"
+  index_basename: "page"

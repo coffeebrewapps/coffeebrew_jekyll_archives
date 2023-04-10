@@ -1,0 +1,45 @@
+archives:
+  navigation:
+    data:
+      invalid: "navigation_data"
+    name:
+      invalid: "navigation_name"
+    before:
+      invalid: "navigation_before"
+    after:
+      invalid: "navigation_after"
+  depths: "invalid"
+  title_format:
+    root:
+      type: "invalid_type"
+      style:
+        invalid: "style"
+    year:
+      type: "invalid_type"
+      style:
+        invalid: "style"
+    month:
+      type: "invalid_type"
+      style:
+        invalid: "style"
+    day:
+      type: "invalid_type"
+      style:
+        invalid: "style"
+  root_dir:
+    invalid: "nested_key"
+  root_basename:
+    invalid: "nested_key"
+  index_root:
+    invalid: "nested_key"
+  index_basename:
+    invalid: "nested_key"
+  permalink:
+    root:
+      invalid: "nested_key"
+    year:
+      invalid: "nested_key"
+    month:
+      invalid: "nested_key"
+    day:
+      invalid: "nested_key"

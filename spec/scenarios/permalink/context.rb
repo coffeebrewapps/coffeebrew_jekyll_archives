@@ -4,18 +4,6 @@ CONTEXT_PERMALINK = "when using different permalink configs"
 
 RSpec.shared_context CONTEXT_PERMALINK do
   let(:scenario) { "permalink" }
-  let(:overrides) do
-    {
-      "archives" => {
-        "permalink" => {
-          "root" => "/:root_dir/:index_root",
-          "year" => "/:root_dir/:year",
-          "month" => "/:root_dir/:year/:month",
-          "day" => "/:root_dir/:year/:month/:day"
-        }
-      }
-    }
-  end
   let(:generated_files) { Dir[dest_dir("archives", "archives.html"), dest_dir("**", "index.html")] }
   let(:expected_files) do
     [

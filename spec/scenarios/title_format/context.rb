@@ -4,30 +4,6 @@ CONTEXT_TITLE_FORMAT = "when using different title format configs"
 
 RSpec.shared_context CONTEXT_TITLE_FORMAT do
   let(:scenario) { "title_format" }
-  let(:overrides) do
-    {
-      "archives" => {
-        "title_format" => {
-          "root" => {
-            "type" => "string",
-            "style" => "/articles"
-          },
-          "year" => {
-            "type" => "string",
-            "style" => "Year %{year}"
-          },
-          "month" => {
-            "type" => "date",
-            "style" => "%B, %Y"
-          },
-          "day" => {
-            "type" => "date",
-            "style" => "%Y-%b-%d"
-          }
-        }
-      }
-    }
-  end
   let(:expected_files) do
     [
       # Main index
