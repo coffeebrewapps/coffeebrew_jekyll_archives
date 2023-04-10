@@ -516,8 +516,10 @@ spec
 │   │   │   │       │   └── index.html
 │   │   │   │       └── index.html
 │   │   │   └── archives.html
+│   │   ├── _config.yml
 │   │   └── context.rb
 │   └── invalid_config_keys
+│       ├── _config.yml
 │       └── context.rb
 └── spec_helper.rb
 ```
@@ -533,6 +535,7 @@ The files that are currently in the repo:
 | `spec/scenarios/` | This directory contains the expected files of various test scenarios. |
 | `spec/scenarios/<scenario>/` | This is the scenario name. |
 | `spec/scenarios/<scenario>/_site/` | This directory contains the expected archive index pages. |
+| `spec/scenarios/<scenario>/_config.yml` | This contains the config overrides for the scenario. |
 | `spec/scenarios/<scenario>/context.rb` | This is the file that sets up the context for the test case. |
 | `spec/spec_helper.rb` | This contains RSpec configuration and certain convenience methods for the main RSpec file. |
 
@@ -555,6 +558,7 @@ spec
 ├── scenarios
 │   └── test_scenario
 │       ├── _site
+│       ├── _config.yml
 │       └── context.rb
 └── spec_helper.rb
 ```
@@ -590,6 +594,7 @@ spec
 ├── coffeebrew_jekyll_archives_spec.rb
 ├── scenarios
 │   └── test_scenario
+│       ├── _config.yml
 │       └── context.rb
 └── spec_helper.rb
 ```
