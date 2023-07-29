@@ -7,3 +7,4 @@ spec/fixtures/.jekyll-cache
 .tool-versions
 _site
 .rubocop-https*
+_docs

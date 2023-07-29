@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require "fileutils"
+require "logger"
+
+logger = Logger.new($stdout)
+logger.level = Logger::DEBUG
+
+version = ARGV[0]
+
+if version.nil?
+  logger.error "Missing version..."
+  exit 0
+end
+
+root_dir = File.expand_path("../", __dir__)
+docsprep = File.join(root_dir, "script", "docsprep")
+
+system("#{docsprep} #{version}")
+
+# Build full docs/
+#
+system("JEKYLL_ENV=production bundle exec jekyll build --verbose --trace --config _cloudflare.yml -d ./_docs")
+
+system("docsclean")
