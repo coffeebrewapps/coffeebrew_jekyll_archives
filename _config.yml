@@ -1,4 +1,4 @@
-baseurl: /coffeebrew_jekyll_archives
+baseurl:
 theme: coffeebrew_jekyll_docs
 
 exclude:
@@ -41,12 +41,12 @@ coffeebrew_jekyll_docs:
       icon: "fa-brands fa-github"
     - link: "https://www.linkedin.com/company/coffeebrewapps/"
       icon: "fa-brands fa-linkedin"
-    - link: "mailto:coffeebrewapps+hi@gmail.com"
+    - link: "mailto:hi@coffeebrewapps.com"
       icon: "fa-solid fa-envelope"
   powered_by:
     host:
-      link: "https://github.com"
-      name: "Github Pages"
+      link: "https://pages.cloudflare.com"
+      name: "Cloudflare Pages"
 
 collections:
   versions:
